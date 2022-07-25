@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock title%}
+{% block content %}
+
+    <div class="m-4">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-success alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <div class="student-form">
+            <form method="POST" action="{{ url_for('check')}}">
+                <div class="mb-3">
+                    {{ form.username.label(class="form-label") }} {{ form.username }}
+                     <ul>
+                        {%  for error in form.username.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    {{ form.password.label(class="form-label") }} {{ form.password }}
+                     <ul>
+                        {%  for error in form.password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {{ form.submit }}
+
+                {{  form.csrf_token }}
+            </form>
+        </div>
+
+        <h2>Password Requirements:</h2>
+        <ul>
+            <li>Password must be 8 characters or longer</li>
+            <li>Password must contain an uppercase letter</li>
+            <li>Password must contain an lowercase letter</li>
+            <li>Password must end with a number</li>
+        </ul>
+
+    </div>
+
+{% endblock content %}
+
+{% block sidebar %}
+    <div class="content-section">
+        <h3>Welcome!</h3>
+        <p class='text-muted'>Check out my social media:</p>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-light">
+                <a href="https://github.com/wisjhn1721">Github</a>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                <a href="https://www.linkedin.com/in/john-wise-6a9ba3218/">LinkedIn</a>
+            </li>
+        </ul>
+    </div>
+{% endblock sidebar %}
